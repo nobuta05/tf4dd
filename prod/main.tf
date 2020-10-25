@@ -29,3 +29,12 @@ resource "datadog_monitor" "cpumonitor_prod" {
 
   tags = ["env:prod"]
 }
+
+resource "datadog_monitor" "hostcheck_prod" {
+  name = "Host Check for Production"
+  type = "service check"
+  message = "host alert"
+  query = "datadog.agent.up.over('env:prod').last(2).count_by_status()"
+
+  tags = ["env:prod"]
+}
